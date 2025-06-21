@@ -1,0 +1,1585 @@
+/* ======================================
+   1. CSS Variables & Global Styles
+====================================== */
+:root {
+    /* Color Palette */
+    --primary-color: #0a0c4b;
+    --secondary-color: #4a4a68;
+    --accent-color: #ff2667;
+    --background-color: #fafafa;
+    
+    /* UI Elements */
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --box-shadow-hover: 0 6px 25px rgba(0, 0, 0, 0.12);
+    --transition-standard: 0.3s ease;
+    --border-radius: 12px;
+    --star-color: #FFB800;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(90deg, #981d96 0%, #6B1065 100%);
+    --gradient-connect: linear-gradient(to bottom, #0007437d 0%, #000743 100%);
+    --gradient-awards: linear-gradient(to bottom, rgba(77, 105, 255, 0.4) 0%, rgb(255, 255, 255) 100%);
+    
+    /* Grid Patterns */
+    --grid-pattern: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    
+    /* Animation Timing */
+    --animation-slow: 1.5s;
+    --animation-medium: 0.8s;
+    --animation-fast: 0.4s;
+    --animation-ultra-fast: 0.2s;
+    
+    /* Animation Easings */
+    --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+    --ease-in-out-back: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Base reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: #ffffff;
+    color: var(--primary-color);
+    overflow-x: hidden;
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeIn 0.8s var(--ease-out-expo) forwards;
+}
+
+/* Add for better structure & best practices */
+
+/* Add focus styles for accessibility */
+:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Skip navigation for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-color);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Improved accessibility for interactive elements */
+.cta-button:focus,
+.secondary-cta-button:focus,
+.primary-cta-button:focus,
+.slider-arrow:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* Add proper SVG styling */
+svg {
+    fill: currentColor;
+}
+
+/* Add print styles */
+@media print {
+    .hero-section {
+        height: auto;
+    }
+    
+    .logo-container,
+    .section2-bg-image,
+    .awards-bg-image,
+    .connect-bg-image,
+    .gradient-overlay {
+        display: none !important;
+    }
+    
+    .ai-automation-section,
+    .awards-section,
+    .final-cta-section {
+        background: white !important;
+        color: black !important;
+        padding: 20px 0 !important;
+    }
+    
+    .container {
+        display: block !important;
+    }
+    
+    .ai-title,
+    .testimonial-headline,
+    .final-cta-headline {
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+        color: black !important;
+    }
+    
+    .phone-text h3 {
+        background: none !important;
+        -webkit-text-fill-color: black !important;
+        color: black !important;
+    }
+    
+    a {
+        text-decoration: underline !important;
+    }
+}
+
+/* ======================================
+   2. Layout & Container Styles
+====================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+/* Section transition classes */
+.section-transition {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s var(--ease-smooth), transform 1s var(--ease-out-expo);
+    will-change: opacity, transform;
+}
+
+.section-transition.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animations for child elements */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+}
+
+.stagger-children.in-view > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stagger-children.in-view > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children.in-view > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children.in-view > *:nth-child(3) { transition-delay: 0.3s; }
+.stagger-children.in-view > *:nth-child(4) { transition-delay: 0.4s; }
+.stagger-children.in-view > *:nth-child(5) { transition-delay: 0.5s; }
+
+/* ======================================
+   3. Hero Section
+====================================== */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 0;
+    overflow: hidden;
+    animation: fadeIn 1.2s var(--ease-out-expo) forwards;
+}
+
+/* Logo containers positioning - Enhanced animations */
+.logo-container {
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    animation: appearAndFloat 6s ease-in-out infinite;
+    animation-delay: calc(var(--delay, 0) * 0.15s);
+}
+
+/* Left side logos */
+.blackberry-logo { top: 15%; left: 20%; --delay: 2; }
+.microsoft-logo { top: 35%; left: 10%; --delay: 4; }
+.logo1-logo { top: 52%; left: 1%; --delay: 6; }
+.aws-logo { top: 52%; left: 20%; --delay: 1; }
+.logo2-logo { bottom: 15%; left: 10%; --delay: 3; }
+
+/* Right side logos */
+.logo3-logo { top: 14%; right: 10%; --delay: 5; }
+.logo4-logo { top: 35%; right: 20%; --delay: 8; }
+.logo5-logo { top: 52%; right: 10%; --delay: 7; }
+.cisco-logo { top: 52%; right: 1%; --delay: 9; }
+.cyber-logo { bottom: 15%; right: 1%; --delay: 10; }
+
+/* Logo box styling */
+.logo-box {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s var(--ease-out-back), box-shadow 0.5s var(--ease-in-out-quad);
+    transform: scale(0);
+    animation: popIn 0.6s var(--ease-out-back) forwards;
+    animation-delay: calc(var(--delay, 0) * 0.15s + 0.3s);
+}
+
+.logo-box:hover {
+    transform: translateY(-8px) scale(1.08);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.logo-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    pointer-events: none;
+    transition: transform 0.6s var(--ease-out-expo);
+    z-index: 1;
+    opacity: 0;
+}
+
+.logo-box:hover::before {
+    transform: rotate(45deg) translate(50%, 50%);
+    opacity: 1;
+}
+
+.menu-box {
+    border: none;
+    box-shadow: none;
+}
+
+.logo {
+    max-width: 60%;
+    max-height: 60%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s var(--ease-out-back);
+}
+
+.logo-box:hover .logo {
+    transform: scale(1.1);
+}
+
+/* Enhanced logo styling for logo1 */
+.logo1-logo .logo-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.logo1-logo .logo {
+    object-fit: cover;
+    object-position: left center;
+    max-width: 150%;
+    max-height: 150%;
+    width: 60%;
+    height: 60%;
+    clip-path: inset(0% 0% 0% 0%);
+    transform-origin: left center;
+}
+
+/* Enhanced logo styling for logo3 */
+.logo3-logo .logo-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.logo3-logo .logo {
+    object-fit: cover;
+    object-position: left center;
+    max-width: 180%; /* Zoom effect */
+    max-height: 180%; /* Zoom effect */
+    width: 60%;
+    height: 60%;
+    clip-path: inset(0% 4% 0% 0%);
+    transform-origin: left center;
+}
+
+/* Enhanced logo styling for cyber - cropped and zoomed */
+.cyber-logo .logo-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-logo .logo {
+    object-fit: cover;
+    object-position: center top;
+    max-width: 150%; /* Zoom effect */
+    max-height: 150%; /* Zoom effect */
+    width: 60%;
+    height: 60%;
+    transform-origin: center top;
+}
+
+/* Maintain hover effect for cropped logos with zooming effect */
+.logo1-logo .logo-box:hover .logo,
+.logo3-logo .logo-box:hover .logo,
+.cyber-logo .logo-box:hover .logo {
+    transform: scale(1.2);
+}
+
+/* Content container styling - Enhanced entrance */
+.content-container {
+    text-align: center;
+    max-width: 800px;
+    z-index: 2;
+    padding: 0 20px;
+    opacity: 0;
+    animation: contentFadeIn 1s var(--ease-out-expo) 0.5s forwards;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slideUp 0.8s var(--ease-out-back) 0.7s forwards;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slideUp 0.8s var(--ease-out-back) 0.9s forwards;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.5rem;
+    background-color: var(--accent-color);
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.4s var(--ease-out-back), box-shadow 0.4s var(--ease-in-out-quad), background-color 0.3s ease;
+    will-change: transform, box-shadow;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slideUp 0.8s var(--ease-out-back) 1.1s forwards;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: transform 0.6s var(--ease-out-expo);
+    z-index: 0;
+    transform: skewX(-20deg);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 38, 103, 0.35);
+    background-color: #ff0055;
+}
+
+.cta-button:hover::before {
+    transform: skewX(-20deg) translateX(200%);
+}
+
+.chevron-icon {
+    margin-left: 8px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s var(--ease-out-back);
+}
+
+.cta-button:hover .chevron-icon {
+    transform: translateX(3px);
+}
+
+/* ======================================
+   4. AI Automation Section
+====================================== */
+.section2-bg-image {
+    position: absolute;
+    bottom: -350px;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/gradient2.png'); 
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    /* Create a smooth transition from both left and top */
+    -webkit-mask-image: 
+        linear-gradient(to right, transparent 20%, rgba(0, 0, 0, 1) 30%),
+        linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 15%);
+    -webkit-mask-composite: source-over;
+    mask-image: 
+        linear-gradient(to right, transparent 20%, rgba(0, 0, 0, 1) 30%),
+        linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 1) 15%);
+    mask-composite: intersect;
+    animation: gradientShift 20s ease-in-out infinite alternate, pulseBackground 15s ease-in-out infinite;
+}
+
+.ai-automation-section {
+    background: var(--gradient-primary);
+    padding: 80px 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-automation-section .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.ai-content {
+    max-width: 700px;
+    padding-right: 20px;
+    transition-delay: 0.2s;
+}
+
+.ai-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    background: linear-gradient(120deg, #ffffff, #e0e0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 100%;
+    animation: gradientText 8s linear infinite;
+    transform: translateY(30px);
+    transition: transform 0.8s var(--ease-out-back), opacity 0.8s var(--ease-out-expo);
+}
+
+.ai-content.in-view .ai-title {
+    transform: translateY(0);
+}
+
+/* Make section transitions faster for AI Automation, Awards and Connect sections */
+.ai-automation-section .section-transition,
+.awards-section .section-transition,
+.final-cta-section .section-transition {
+    transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-out-expo);
+}
+
+/* Grid pattern overlay */
+.ai-automation-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--grid-pattern);
+    background-size: 40px 40px;
+    z-index: 1;
+    animation: gridMove 30s linear infinite;
+}
+
+/* Glow effect */
+.ai-automation-section::after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    animation: pulseGlow 10s ease-in-out infinite alternate;
+}
+
+/* Device mockups */
+.devices-mockup {
+    position: relative;
+    width: 550px;
+    height: 400px;
+    margin-left: auto;
+    transition-delay: 0.4s;
+}
+
+/* Tablet mockup styling - Enhanced entrance animation */
+.tablet-mockup {
+    position: absolute;
+    top: -190px;
+    right: -90px;
+    width: 380px;
+    height: 500px;
+    z-index: 1;
+    perspective: 1000px;
+    opacity: 0;
+    transform: translateY(-200px) translateX(100px) rotate(-15deg) scale(0.8);
+    transition: opacity 1s var(--ease-out-expo), transform 1.2s var(--ease-out-back);
+}
+
+.devices-mockup.in-view .tablet-mockup {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(-2deg) scale(1);
+}
+
+/* After entering, start the floating animation */
+.devices-mockup.in-view .tablet-mockup.animated {
+    animation: floatTablet 6s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+/* Phone mockup styling - Enhanced entrance animation */
+.phone-mockup {
+    position: absolute;
+    bottom: -150px;
+    left: 80px;
+    width: 380px;
+    height: 500px;
+    z-index: 3;
+    perspective: 1000px;
+    opacity: 0;
+    transform: translateY(200px) translateX(-100px) rotate(15deg) scale(0.8);
+    transition: opacity 1s var(--ease-out-expo), transform 1.2s var(--ease-out-back);
+    transition-delay: 0.2s;
+}
+
+.devices-mockup.in-view .phone-mockup {
+    opacity: 1;
+    transform: translateY(0) translateX(0) rotate(2deg) scale(1);
+}
+
+/* After entering, start the floating animation */
+.devices-mockup.in-view .phone-mockup.animated {
+    animation: floatPhone 6s ease-in-out infinite reverse;
+    animation-delay: 1.5s;
+}
+
+/* Tablet frame styling - Enhanced */
+.tablet-frame {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 10px solid #000000;
+    position: relative;
+    transition: transform 0.6s var(--ease-out-back), box-shadow 0.6s var(--ease-in-out-quad);
+}
+
+.tablet-frame:hover {
+    transform: scale(1.03);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.tablet-content {
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tablet-diagram {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tablet-diagram img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 8s ease-in-out;
+}
+
+.tablet-frame:hover .tablet-diagram img {
+    transform: scale(1.05);
+}
+
+/* Phone frame styling - Enhanced */
+.phone-frame {
+    width: 100%;
+    height: 100%;
+    border-radius: 36px;
+    overflow: hidden;
+    background-color: #14002A;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 10px solid #000;
+    position: relative;
+    transition: transform 0.6s var(--ease-out-back), box-shadow 0.6s var(--ease-in-out-quad);
+}
+
+.phone-frame:hover {
+    transform: scale(1.03);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(87, 70, 234, 0.6), rgba(20, 0, 42, 0) 70%);
+    animation: gradientPulse 8s ease-in-out infinite alternate;
+}
+
+.phone-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    position: relative;
+}
+
+/* Add a new animation for the phone content reveal */
+@keyframes revealContent {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fix for phone text content - make it more reliable */
+.phone-text {
+    position: relative;
+    z-index: 5; /* Increase z-index to ensure it's above gradient overlay */
+    width: 100%;
+    color: white; /* Ensure text is white even if animations fail */
+}
+
+.phone-text h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    background: linear-gradient(to right, #FF5C87, #B980FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+    animation: gradientText 6s linear infinite;
+    opacity: 0;
+    transition: none; /* Reset any transitions that might interfere */
+}
+
+.phone-text p {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0;
+    transition: none; /* Reset any transitions that might interfere */
+}
+
+/* Explicitly visible class for phone text - overrides any other styles */
+.phone-text h3.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    animation: none !important;
+}
+
+.phone-text p.visible {
+    opacity: 0.9 !important;
+    transform: translateY(0) !important;
+    animation: none !important;
+}
+
+/* ======================================
+   5. Awards Section
+====================================== */
+.awards-section {
+    padding: 200px 0;
+    position: relative;
+    overflow: hidden;
+    color: var(--primary-color);
+}
+
+/* Background elements with enhanced animations */
+.awards-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('images/gradient2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    transform: translateX(-40%);
+    opacity: 0.9;
+    animation: gradientShift 15s ease-in-out infinite alternate, subtleFloatBg 10s ease-in-out infinite;
+}
+
+.awards-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-awards);
+    z-index: 1;
+}
+
+/* Grid pattern overlay */
+.awards-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--grid-pattern);
+    background-size: 20px 20px;
+    z-index: 1;
+    opacity: 0.5;
+    animation: gridMove 40s linear infinite;
+}
+
+/* Content layout */
+.awards-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* Testimonials slider - Enhanced animations */
+.testimonial-slider-container {
+    position: relative;
+    width: 450px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-delay: 0.2s;
+    transform: translateX(-20px);
+}
+
+.testimonial-slider-container.in-view {
+    transform: translateX(0);
+}
+
+.testimonials-container {
+    width: 350px;
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    left: -55px;
+    perspective: 1000px;
+}
+
+.testimonial-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-back);
+    transform: translateY(20px) scale(0.95) rotateY(5deg);
+    transform-origin: center center;
+    backface-visibility: hidden;
+}
+
+.testimonial-card.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0) scale(1) rotateY(0deg);
+}
+
+.award-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.award-image img {
+    max-width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    transition: transform 0.5s var(--ease-out-back);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.7s var(--ease-out-back) 0.2s, opacity 0.7s ease 0.2s;
+}
+
+.testimonial-card.active .award-image img {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.divider {
+    width: 90%;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+    animation: dividerShine 2s ease-in-out infinite;
+}
+
+.testimonial-rating {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.rating-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #e0e0e0;
+    margin: 0 -1px;
+    transition: transform 0.3s var(--ease-out-back);
+}
+
+.testimonial-card:hover .star {
+    transform: translateY(-2px);
+    transition-delay: calc(var(--index, 0) * 0.05s);
+}
+
+.star:nth-child(1) { --index: 1; }
+.star:nth-child(2) { --index: 2; }
+.star:nth-child(3) { --index: 3; }
+.star:nth-child(4) { --index: 4; }
+.star:nth-child(5) { --index: 5; }
+
+.star.filled {
+    color: #AD911A;
+}
+
+.star.half-filled {
+    position: relative;
+    color: #e0e0e0;
+}
+
+.star.half-filled:before {
+    content: '★';
+    position: absolute;
+    color: var(--star-color);
+    width: 50%;
+    overflow: hidden;
+}
+
+/* Testimonial text content */
+.testimonial-text-content {
+    width: 2000px;
+    color: var(--primary-color);
+    transition-delay: 0.4s;
+}
+
+.testimonial-headline {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    line-height: 1.1;
+    color: var(--primary-color);
+    position: relative;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.6s var(--ease-out-back), opacity 0.6s ease-out;
+}
+
+.testimonial-text-content.in-view .testimonial-headline {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.testimonial-quote {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    font-style: normal;
+    color: var(--primary-color);
+    position: relative;
+    padding-left: 20px;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.6s var(--ease-out-back), opacity 0.6s ease-out;
+    transition-delay: 0.1s;
+}
+
+.testimonial-text-content.in-view .testimonial-quote {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Slider arrow styling - Enhanced hover */
+.slider-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid transparent;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0.7;
+    transition: all 0.4s var(--ease-out-back);
+    z-index: 5;
+}
+
+.slider-arrow:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.15);
+}
+
+.slider-arrow svg {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s var(--ease-out-back);
+}
+
+.slider-arrow:hover svg {
+    transform: scale(1.1);
+}
+
+.prev-arrow {
+    left: -150px;
+}
+
+.prev-arrow:hover svg {
+    transform: translateX(-2px);
+}
+
+.next-arrow {
+    right: -22px;
+}
+
+.next-arrow:hover svg {
+    transform: translateX(2px);
+}
+
+/* ======================================
+   6. Connect Section
+====================================== */
+.final-cta-section {
+    position: relative !important;
+    height: 500px !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    background: none !important;
+}
+
+/* Background image */
+.connect-bg-image {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 200% !important;
+    height: 100% !important;
+    background-image: url('images/gradient2.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    z-index: 0 !important;
+    transform: translateX(-40%) !important;
+    opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Gradient overlay */
+.connect-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: var(--gradient-connect) !important;
+    z-index: 1 !important;
+    display: block !important;
+}
+
+/* Grid pattern overlay */
+.final-cta-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background-image: var(--grid-pattern) !important;
+    background-size: 20px 20px !important;
+    z-index: 2 !important;
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+}
+
+/* Content styling - No animations */
+.final-cta-content {
+    position: relative !important;
+    z-index: 3 !important;
+    text-align: center !important;
+}
+
+.final-cta-headline {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    line-height: 1.1;
+    background: linear-gradient(120deg, #ffffff, #e0e0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    /* Removed animation, kept just the styling */
+}
+
+/* Primary button - Kept hover effect, removed entrance animation */
+.primary-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 2rem;
+    background-color: #FF3366;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: transform 0.3s var(--ease-out-back), 
+                box-shadow 0.3s var(--ease-in-out-quad), 
+                background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    /* Removed transform and opacity initial states */
+}
+
+.primary-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: transform 0.6s var(--ease-out-expo);
+    z-index: 0;
+    transform: skewX(-20deg);
+}
+
+.primary-cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 51, 102, 0.4);
+    background-color: #ff1a4d;
+}
+
+.primary-cta-button:hover::before {
+    transform: skewX(-20deg) translateX(200%);
+}
+
+/* Secondary button animation - Faster */
+.secondary-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.5rem;
+    background-color: #A86DB7;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-in-out-quad), 
+                background-color 0.3s ease, opacity 0.5s ease-out;
+    will-change: transform, box-shadow;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(15px);
+    opacity: 0;
+}
+
+.ai-content.in-view .secondary-cta-button {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.1s;
+}
+
+.secondary-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: transform 0.6s var(--ease-smooth);
+    z-index: 0;
+    transform: skewX(-20deg);
+}
+
+.secondary-cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(168, 109, 183, 0.4);
+    background-color: #9456a8;
+}
+
+.secondary-cta-button:hover::before {
+    transform: skewX(-20deg) translateX(200%);
+}
+
+.secondary-cta-button .chevron-icon {
+    margin-left: 8px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+.secondary-cta-button:hover .chevron-icon {
+    transform: translateX(3px);
+}
+
+.secondary-cta-button .chevron-icon path {
+    stroke: #ffffff;
+}
+
+/* ======================================
+   8. Animations & Effects
+====================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes appearAndFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    10%, 100% {
+        opacity: 1;
+    }
+    30%, 50%, 70% {
+        transform: translateY(-8px) scale(1.02);
+    }
+    40%, 60%, 80% {
+        transform: translateY(0px) scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
+}
+
+@keyframes floatTablet {
+    0%, 100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(-1deg);
+    }
+}
+
+@keyframes floatPhone {
+    0%, 100% {
+        transform: translateY(0) rotate(2deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(1deg);
+    }
+}
+
+@keyframes pulseBackground {
+    0%, 100% {
+        transform: scale(1) translateX(-40%);
+    }
+    50% {
+        transform: scale(1.03) translateX(-38%);
+    }
+}
+
+@keyframes subtleFloatBg {
+    0%, 100% {
+        transform: translateX(-40%) translateY(0);
+    }
+    50% {
+        transform: translateX(-40%) translateY(-10px);
+    }
+}
+
+/* ======================================
+   9. Media Queries
+====================================== */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .logo-box {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .tablet-mockup {
+        width: 340px;
+        height: 450px;
+    }
+    
+    .phone-mockup {
+        width: 340px;
+        height: 450px;
+        left: 50px;
+    }
+    
+    .testimonial-headline {
+        font-size: 3.2rem;
+    }
+    
+    .testimonial-quote {
+        font-size: 1.15rem;
+    }
+    
+    .final-cta-headline {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .logo-box {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .section-title {
+        font-size: 2.25rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tablet-mockup {
+        width: 300px;
+        height: 400px;
+        top: 0;
+    }
+    
+    .phone-mockup {
+        width: 300px;
+        height: 400px;
+        left: 40px;
+        bottom: -60px;
+    }
+    
+    .phone-text h3 {
+        font-size: 1.8rem;
+    }
+    
+    .phone-text p {
+        font-size: 1rem;
+    }
+    
+    .awards-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .testimonial-text-content {
+        text-align: center;
+    }
+    
+    .testimonial-headline {
+        font-size: 2.8rem;
+    }
+    
+    .final-cta-headline {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .logo-box {
+        width: 70px;
+        height: 70px;
+    }
+    
+    /* Hide some logos on smaller screens */
+    .github-kitty-logo, .aws-logo {
+        display: none;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ai-automation-section .container {
+        flex-direction: column;
+    }
+    
+    .ai-content {
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 100px;
+    }
+    
+    .devices-mockup {
+        width: 100%;
+        height: 500px;
+        margin: 0 auto;
+    }
+    
+    .tablet-mockup {
+        right: 50%;
+        transform: translateX(60%);
+    }
+    
+    .phone-mockup {
+        left: 50%;
+        transform: translateX(-60%);
+    }
+    
+    .testimonial-headline {
+        font-size: 2.5rem;
+    }
+    
+    .testimonial-quote {
+        font-size: 1.1rem;
+    }
+    
+    .final-cta-headline {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .devices-mockup {
+        height: 400px;
+    }
+    
+    .tablet-mockup {
+        width: 240px;
+        height: 320px;
+        top: 20px;
+    }
+    
+    .phone-mockup {
+        width: 240px;
+        height: 320px;
+        bottom: -40px;
+    }
+    
+    .phone-text h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+    
+    .phone-text p {
+        font-size: 0.9rem;
+    }
+    
+    .testimonials-container {
+        width: 300px;
+        height: 320px;
+    }
+    
+    .slider-arrow {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .testimonial-headline {
+        font-size: 2.2rem;
+    }
+    
+    .final-cta-headline {
+        font-size: 2.5rem;
+    }
+    
+    .primary-cta-button {
+        font-size: 1rem;
+        padding: 0.7rem 1.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .logo-box {
+        width: 60px;
+        height: 60px;
+    }
+    
+    /* Further simplify for mobile */
+    .microsoft-logo, .github-logo {
+        display: none;
+    }
+    
+    .search-icon-container, .cisco-icon-container, .snowflake-icon-container, .adobe-logo {
+        display: none;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* Add better organization for responsive section */
+/* Update media queries to follow mobile-first approach */
+@media (min-width: 480px) {
+    /* ...existing code... */
+}
+
+@media (min-width: 576px) {
+    /* ...existing code... */
+}
+
+/* ...other media queries... */
