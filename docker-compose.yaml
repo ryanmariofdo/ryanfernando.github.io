@@ -1,0 +1,15 @@
+services:
+  website:
+    image: nginx:latest
+    container_name: website
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+      - ./styles.css:/usr/share/nginx/html/styles.css
+      - ./script.js:/usr/share/nginx/html/script.js
+      - ./images:/usr/share/nginx/html/images
+    ports:
+      - "3000:80"  # Map port 80 in the container to port 3000 on the host
+    restart: always
